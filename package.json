@@ -1,0 +1,16 @@
+{
+  "name": "swooper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "(watchify public/index.js -o public/bundle.js -v --debug &); node app.js",
+    "prod": "(browserify public/index.js -o public/bundle.js) && node app.js"
+  },
+  "author": "Sidhant Chadda",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "pixi.js": "^4.5.3"
+  }
+}
