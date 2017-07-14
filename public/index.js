@@ -55,16 +55,14 @@ function gameLoop(deltaTime) {
 		var square = grid[point.y][point.x];
 		
 		if(player.recent !== square) {
-			if(player.id !== square.id) {
+			if(!square.isOwner(player)) {
 				if(player.safe) {
 					//start collecting the points
 					player.addPoint();
 				}
 				//not in the safe zone
 				player.safe = false;
-				square.texture = player.colorAlpha;
-				square.id = player.id;
-				square.tail = true;
+				square.onHover(player);
 			}
 			else {
 				if(!player.safe) {

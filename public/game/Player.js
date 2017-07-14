@@ -18,9 +18,7 @@ class Player {
 		//array of points that the player has reached when they are not safe
 		this.points = [];
 
-		//variable that determines whether the player is on their color
-		//starts off true
-		this.safe = true;
+		this.safe = false;
 		
 	}
 
@@ -95,13 +93,7 @@ class Player {
 		for(var i =0; i<Config.board_length; i++) {
 			for(var j= 0; j<Config.board_length; j++) {
 				var square = board[j][i];
-				if(square.id === this.id) {
-					//delete the square
-					square.id = null;
-
-					//change the texture of the square back to normal
-					square.texture = resources[Config.images.normal].texture;
-				}
+				square.removeOwner();
 			}
 		}
 	}
@@ -130,9 +122,7 @@ class Player {
 
 				for(var y = smally; y <= bigy; y++) {
 					var square = grid[y][point1.x];
-					square.texture = this.color;
-					square.id = this.id;
-					square.tail = false;
+					square.changeOwner(this);
 					tail.push({x: point1.x, y: y});
 				}
 			}
@@ -141,9 +131,7 @@ class Player {
 				var bigx = (smallx === point1.x) ? point2.x: point1.x;
 				for(var x = smallx; x<=bigx; x++) {
 					var square = grid[point1.y][x];
-					square.texture = this.color;
-					square.id = this.id;
-					square.tail = false;
+					square.changeOwner(this);
 					tail.push({x: x, y: point1.y});
 				}
 			}
@@ -176,7 +164,7 @@ class Player {
 		//if we are in bounds and we haven't visited this space before 
 		//and we are already on our square
 
-		if(!this._outOfBounds(x, y) && (!been[y][x]) && (grid[y][x].id !== this.id)) {
+		if(!this._outOfBounds(x, y) && (!been[y][x]) && (!grid[y][x].isOwner(this))) {
 			//push thisn point onto the stack
 			stack.push({x: x, y: y});
 
@@ -189,7 +177,7 @@ class Player {
 					continue;
 				}
 				
-				if(been[point.y][point.x] || grid[point.y][point.x].id === this.id)
+				if(been[point.y][point.x] || grid[point.y][point.x].isOwner(this))
 					continue;
 
 				been[point.y][point.x] = true;
@@ -205,9 +193,8 @@ class Player {
 				while(arr.length > 0) {
 					var point = arr.pop();
 					var square = grid[point.y][point.x];
-					square.id = this.id;
-					square.tail = false;
-					square.texture = this.color;
+					//change the owner of the square to this player
+					square.changeOwner(this);
 				}
 			}
 		}

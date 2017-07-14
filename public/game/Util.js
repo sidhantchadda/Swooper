@@ -1,6 +1,8 @@
 const Config = require('../config/Config.js');
 const Player = require('./Player.js');
 const MainPlayer = require('./MainPlayer.js');
+const Square = require('./Square.js');
+
 /*
 	client side Utility class that controls player array 
 	and asset allocation for each player
@@ -80,12 +82,11 @@ class Util {
 
 		for(var x = 0; x<length; x++) {
 			for(var y = 0; y<length; y++) {
-				var square = new PIXI.Sprite(texture);
-				square.x = x*Config.scale;
-				square.y = y*Config.scale;
-				square.id = null;
-				square.tail = false;
-				this.stage.addChild(square);
+				var sprite = new PIXI.Sprite(texture);
+				sprite.x = Config.scale * x;
+				sprite.y = Config.scale * y;
+				var square = new Square(x, y, sprite);
+				this.stage.addChild(sprite);
 				grid[x][y] = square;
 			}
 		}

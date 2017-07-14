@@ -3,7 +3,5 @@ module.exports = {
 	scale: 32,
 	speed: 3.8,
 	max_players: 2,
-	images: {
-		normal: "square.png"
-	}
+	normal: "imgs/square.png"
 };

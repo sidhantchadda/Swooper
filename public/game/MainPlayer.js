@@ -1,15 +1,12 @@
 const Player = require('./Player.js');
 const Config = require('../config/Config.js');
 
-
 class MainPlayer extends Player {
 
 	constructor(resources, stage) {
 		super(resources, stage);
 		this.speed = Config.speed;
 	}
-
-	
 	/*
 		1 is up
 		2 is down

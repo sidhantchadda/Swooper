@@ -19,9 +19,7 @@ module.exports = (player, grid) => {
 	for(var i = y-3; i<y+3; i++) {
 		for(var j = x-3; j<x+3; j++) {
 			var square = grid[j][i];
-			square.texture = player.color;
-			square.id = player.id;
+			square.changeOwner(player)
 		}
 	}
-
 }
