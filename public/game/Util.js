@@ -8,7 +8,8 @@ const Square = require('./Square.js');
 	and asset allocation for each player
 */
 class Util {
-	constructor(PIXI, stage) {
+	constructor(PIXI, stage, socket) {
+		this.socket = socket;
 		this.PIXI = PIXI;
 		this.stage = stage;
 		this.resources = PIXI.loader.resources;
@@ -16,7 +17,6 @@ class Util {
 		this.skins = [];
 		this.color = [];
 		this.colorAlpha = [];
-
 		//store resources in appropriate arrays
 		for(var i = 0; i<Config.max_players; i++) {
 			this.skins[i] = this.resources["imgs/p"+i+".png"].texture;
@@ -37,7 +37,7 @@ class Util {
 	*/
 	generatePlayer(x, y, id) {
 		//pass in the parameters of the stuff
-		players[id] = new Player(resources, stage);
+		players[id] = new Player(resources, stage, this.socket);
 		player.initPlayer(skins[id], color[id], colorAlpha[id], x, y, id);
 	}
 
@@ -45,7 +45,7 @@ class Util {
 		generates a new Main player object and adds to the list of players
 	*/
 	generateMainPlayer(x, y, id) {
-		this.mainPlayer = new MainPlayer(this.resources, this.stage);
+		this.mainPlayer = new MainPlayer(this.resources, this.stage, this.socket);
 		this.players[id] = this.mainPlayer;
 		this.mainPlayer.initPlayer(this.skins[id], this.color[id], this.colorAlpha[id], x, y, id);
 
@@ -78,7 +78,7 @@ class Util {
 			grid[i] = new Array(length);
 		}
 
-		var texture = this.resources["imgs/square.png"].texture;
+		var texture = this.resources[Config.normal].texture;
 
 		for(var x = 0; x<length; x++) {
 			for(var y = 0; y<length; y++) {

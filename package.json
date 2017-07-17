@@ -10,7 +10,11 @@
   "author": "Sidhant Chadda",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "pixi.js": "^4.5.3"
+    "pixi.js": "^4.5.3",
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3",
+    "socketio": "^1.0.0"
   }
 }

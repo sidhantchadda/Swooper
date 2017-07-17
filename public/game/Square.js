@@ -46,7 +46,7 @@ class Square {
 		removes the owner of a square
 	*/
 	removeOwner() {
-		this.Sprite.texture = Config.images.normal;
+		this.Sprite.texture = Config.normal;
 		this.owner = null;
 	}
 

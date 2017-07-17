@@ -3,8 +3,8 @@ const Config = require('../config/Config.js');
 
 class MainPlayer extends Player {
 
-	constructor(resources, stage) {
-		super(resources, stage);
+	constructor(resources, stage, socket) {
+		super(resources, stage, socket);
 		this.speed = Config.speed;
 	}
 	/*

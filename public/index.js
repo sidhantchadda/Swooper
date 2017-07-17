@@ -3,12 +3,12 @@ const Loader =require('./config/loader.js');
 const Setup = require('./config/setup.js');
 const Config = require('./config/config.js');
 const Util = require('./game/Util.js');
+const sock = require('./config/Socket.js');
 const MainPlayer = require('./game/MainPlayer.js');
 
 //Aliases
 var resources = PIXI.loader.resources;
 var app = new PIXI.Application();
-
 
 //Create the renderer
 var renderer = PIXI.autoDetectRenderer(256, 256);
@@ -23,17 +23,13 @@ function setup() {
 	renderer.render(stage);
 	
 	//build utility object
-	util = new Util(PIXI, stage);
-
-
-
+	util = new Util(PIXI, stage, socket);
 	//get information from server and spit it into the util object
 	util.generateMainPlayer(0, 0, 0);
 	//handle spawn of player object
 	require('./game/spawn.js') (util.getMainPlayer(), util.getGrid());
 	//run game loop
 	app.ticker.add(gameLoop);
-
 	app.ticker._maxElapsedMS = 5000;
 }
 
@@ -79,4 +75,5 @@ function gameLoop(deltaTime) {
 /*
 	load appropriate resources
 */
+var socket = new sock();
 new Loader(PIXI, setup);

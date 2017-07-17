@@ -1,7 +1,8 @@
 const Config = require('../config/config.js');
 
 class Player {
-	constructor(resources, stage) {
+	constructor(resources, stage, socket) {
+		this.socket = socket;
 		this.resources = resources;
 		this.stage = stage;
 		
@@ -17,7 +18,6 @@ class Player {
 
 		//array of points that the player has reached when they are not safe
 		this.points = [];
-
 		this.safe = false;
 		
 	}
@@ -101,7 +101,13 @@ class Player {
 		adds a point to the array of points needed to build a shape
 	*/
 	addPoint() {
-		this.points.push(this.getPoint());
+		var point = this.getPoint();
+		this.points.push(point);
+		const data = {
+			id: this.id,
+			point: point
+		};
+		this.socket.sendPoint(data);
 	}
 
 	/*
